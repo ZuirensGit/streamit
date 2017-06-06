@@ -102,8 +102,10 @@
                 <!--end of container-->
             </section>
               <div class="sponsor-slider">
+                {% if sponsors|length > 1 %}
                 <i class="fa fa-chevron-left fa-3x" aria-hidden="true"></i>
                 <i class="fa fa-chevron-right fa-3x" aria-hidden="true"></i>
+                {% endif %}
                 <figure>
                   {% for sponsor in sponsors %}
                     <section class="image-bg overlay pt180 pb180 pt-xs-96 pb-xs-96 slide">

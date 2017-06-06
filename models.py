@@ -1,16 +1,25 @@
 from django.db import models
 from django.utils import timezone
+from django.db.models.signals import pre_save
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
 class Channel(models.Model):
     name = models.CharField(max_length=31)
+    slug = models.SlugField(null=True, blank=True)
     main_title = models.TextField()
     main_slogan = models.TextField()
     up_coming_description = models.TextField()
 
     def __str__(self):
         return self.name
+
+def create_slug_pre_save_receiver(sender, instance, *args, **kwargs):
+    instance.slug = slugify(instance.name)
+
+pre_save.connect(create_slug_pre_save_receiver, sender=Channel)
+
 
 class ControlMeta(models.Model):
     channel = models.ForeignKey('Channel')
@@ -25,6 +34,7 @@ class ControlMeta(models.Model):
     viewer_scaler = models.FloatField(default=1.0)
     viewer_offset = models.FloatField(default=0.0)
     viewer_random_range = models.IntegerField(default=0)
+    on_air = models.BooleanField(default=False)
     start_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

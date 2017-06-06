@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^(?P<channel>\w+)/$', views.channel, name='channel'),
+    url(r'^(?P<slug>[\w-]+)/$', views.channel, name='channel'),
 ]

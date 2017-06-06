@@ -4,13 +4,11 @@ from django.utils import timezone
 from .models import Channel, ControlMeta, Performer, Sponsor
 
 
-def channel(request, channel):
-    channel = get_object_or_404(Channel, name=channel)
-    control_meta = ControlMeta.objects.filter(start_time__gt=timezone.now()).order_by('start_time')[0]
-    performers = Performer.objects.filter(start_time__gt=timezone.now()).order_by('start_time')[1:3]
+def channel(request, slug):
+    channel = get_object_or_404(Channel, slug=slug)
+    control_meta = ControlMeta.objects.filter(on_air=True).order_by('start_time')[0]
+    performers = Performer.objects.filter(channel=channel, start_time__gt=timezone.now()).exclude(pk=control_meta.performer.pk).order_by('start_time')[0:2]
     sponsors = Sponsor.objects.all()
-    slider_content_width = 100 / len(sponsors)
-    slide_width = 100 * len(sponsors)
 
 
     context = {
@@ -18,8 +16,6 @@ def channel(request, channel):
         'control_meta': control_meta,
         'performers': performers,
         'sponsors': sponsors,
-        'slider_content_width': slider_content_width,
-        'slide_width': slide_width,
     }
 
     return render(request, 'index.html', context)
