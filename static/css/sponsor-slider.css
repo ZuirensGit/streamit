@@ -1,0 +1,37 @@
+.sponsor-slider figure section.slide {
+  float: left;
+  width: 100%;
+}
+.sponsor-slider section.slide img {
+  width: 100%;
+}
+
+.sponsor-slider figure{
+  position: relative;
+  width: 100%;
+  margin: 0;
+  left: 0;
+}
+
+.sponsor-slider {
+  position: relative;
+}
+.blank-div {
+  clear: both;
+}
+
+.fa-chevron-right{
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  right: 1%;
+  color: white;
+}
+
+.fa-chevron-left{
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 1%;
+  color: white;
+}

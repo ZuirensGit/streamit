@@ -1,0 +1,29 @@
+.flowplayer.is-background {
+  position: absolute;
+  max-height: none;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.flowplayer.is-background .fp-mask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+/*.flowplayer.is-background .fp-ui {
+  display: none;
+}*/
+
+.flowplayer.is-background .fp-ui .fp-waiting, .fp-ui .fp-header, .fp-ui .fp-speed-flash, .fp-ui .fp-controls  {
+  display: none;
+}
+
+.flowplayer .fp-menu, .fp-share-menu, .flowplayer .fp-subtitle-menu {
+  display: none;
+}
