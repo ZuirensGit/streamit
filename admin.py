@@ -7,8 +7,8 @@ class ChannelAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 class ControlMetaAdmin(admin.ModelAdmin):
-    list_display = ('name', 'start_time')
-
+    list_editable = ['stream_source', 'on_air']
+    list_display = ('name', 'stream_source', 'end_time', 'on_air')
 
 class PerformerAdmin(admin.ModelAdmin):
     list_display = ('name', 'start_time')

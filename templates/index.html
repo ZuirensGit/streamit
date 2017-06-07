@@ -12,7 +12,7 @@
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="{{ control_meta.og_title }}"/>
     <meta property="og:description" content="{{ control_meta.og_description }}"/>
-    <meta property="og:image" content="{{ control_meta.og_image }}"/>
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ control_meta.og_image.url }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=0.9">
     <link rel="stylesheet" href="{% static "css/skin/skin.css" %}">
     <link rel="stylesheet" href="{% static "css/flowplayer.background.css" %}">

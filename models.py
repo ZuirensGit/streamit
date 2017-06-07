@@ -25,9 +25,9 @@ class ControlMeta(models.Model):
     channel = models.ForeignKey('Channel')
     name = models.CharField(max_length=31)
     og_url = models.CharField(max_length=1023, default='http://live.zuirens.com')
-    og_title = models.CharField(max_length=31, default='zuirens')
+    og_title = models.CharField(max_length=100, default='zuirens')
     og_description = models.TextField(blank=True)
-    og_image = models.CharField(max_length=1023, default='http://live.zuirens.com')
+    og_image = models.ImageField(default=static('img/Zuirens-bg.jpg'), upload_to='og_image/', null=True, blank=True)
     performer = models.ForeignKey('performer', null=True, blank=True)
     stream_source = models.CharField(max_length=1023, blank=True)
     background = models.ImageField(default=static('img/Zuirens-bg.jpg'), upload_to='website_background/', null=True, blank=True)
@@ -36,12 +36,19 @@ class ControlMeta(models.Model):
     viewer_random_range = models.IntegerField(default=0)
     on_air = models.BooleanField(default=False)
     start_time = models.DateTimeField(default=timezone.now)
+    end_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.name
 
     class Meta:
         ordering = ['-start_time',]
+
+def og_pre_save_receiver(sender, instance, *args, **kwargs):
+    instance.og_title = instance.channel.name
+
+pre_save.connect(og_pre_save_receiver, sender=ControlMeta)
+
 
 
 class Performer(models.Model):
@@ -58,9 +65,10 @@ class Performer(models.Model):
         ordering = ['-start_time',]
 
 class Sponsor(models.Model):
-    name = models.CharField(max_length=31)
+    name = models.TextField()
     description = models.TextField()
     background = models.ImageField(default=static('img/Zuirens-bg.jpg'),upload_to='sponsor_background/', null=True, blank=True)
+    publish = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
