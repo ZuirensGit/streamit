@@ -11,7 +11,7 @@ def index(request):
 def channel(request, slug):
     channel = get_object_or_404(Channel, slug=slug)
     control_meta = ControlMeta.objects.filter(on_air=True).order_by('start_time')[0]
-    performers = Performer.objects.filter(channel=channel, start_time__gt=timezone.now()).exclude(pk=control_meta.performer.pk).order_by('start_time')[0:3]
+    performers = Performer.objects.filter(channel=channel, start_time__gt=timezone.now()).exclude(pk=control_meta.performer.pk).order_by('start_time')[0:4]
     sponsors = Sponsor.objects.all()
 
 
