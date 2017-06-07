@@ -61,11 +61,7 @@
       <section class="fullscreen cover image-bg">
       		<div class="background-image-holder">
               {% if not control_meta.stream_source %}
-                {% if control_meta.background %}
-          				<img alt="image" class="background-image" src="{{ control_meta.background.url }}" />
-                {% else %}
-                  <img alt="image" class="background-image" src="{% static "img/Zuirens-bg.jpg" %}" />
-                {% endif %}
+        				<img alt="image" class="background-image" src="{{ control_meta.background.url }}" />
               {% else %}
         				<div id="hlsjslive1" class="fs-vid-background" style="background-color: #000;"></div>
               {% endif %}
@@ -110,11 +106,7 @@
                   {% for sponsor in sponsors %}
                     <section class="image-bg overlay pt180 pb180 pt-xs-96 pb-xs-96 slide">
                       <div class="background-image-holder">
-                        {% if sponsor.background %}
-                          <img alt="image" class="background-image" src="{{ sponsor.background.url }}" />
-                        {% else %}
-                          <img alt="image" class="background-image" src="{% static "img/pioneer-dj.jpg" %}" />
-                        {% endif %}
+                        <img alt="image" class="background-image" src="{{ sponsor.background.url }}" />
                       </div>
                         <div class="container">
                             <div class="row">

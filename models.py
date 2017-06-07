@@ -2,8 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.db.models.signals import pre_save
 from django.template.defaultfilters import slugify
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
-# Create your models here.
 
 class Channel(models.Model):
     name = models.CharField(max_length=31)
@@ -30,7 +30,7 @@ class ControlMeta(models.Model):
     og_image = models.CharField(max_length=1023, default='http://live.zuirens.com')
     performer = models.ForeignKey('performer', null=True, blank=True)
     stream_source = models.CharField(max_length=1023, blank=True)
-    background = models.ImageField(upload_to='website_background/', null=True, blank=True)
+    background = models.ImageField(upload_to='website_background/', default=static('img/Zuirens-bg.jpg'), null=True, blank=True)
     viewer_scaler = models.FloatField(default=1.0)
     viewer_offset = models.FloatField(default=0.0)
     viewer_random_range = models.IntegerField(default=0)
@@ -60,7 +60,7 @@ class Performer(models.Model):
 class Sponsor(models.Model):
     name = models.CharField(max_length=31)
     description = models.TextField()
-    background = models.ImageField(upload_to='sponsor_background/', null=True, blank=True)
+    background = models.ImageField(upload_to='sponsor_background/', default=static('img/pioneer-dj.jpg'), null=True, blank=True)
 
     def __str__(self):
         return self.name
