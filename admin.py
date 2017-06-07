@@ -11,7 +11,7 @@ class ControlMetaAdmin(admin.ModelAdmin):
     list_display = ('name', 'stream_source', 'end_time', 'on_air')
 
 class PerformerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'start_time')
+    list_display = ('name', 'start_time', 'end_time')
 
 class SponsorAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')

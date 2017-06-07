@@ -179,8 +179,8 @@ $(document).ready(function() {
 
     if($('.instafeed').length){
     	jQuery.fn.spectragram.accessData = {
-			accessToken: '4320925417.877cb60.55ae95a2d10f479ea7e4efd492f2a020',
-			clientID: '877cb60e56f04f43923802f0540e5bc2'
+			accessToken: '1038415.601b366.86e0eb63bff243ebad39e263a0485067',
+			clientID: '601b3664306a4bcbbe32cfe5137bf681'
 		};
 
         $('.instafeed').each(function() {

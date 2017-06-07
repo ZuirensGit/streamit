@@ -12,10 +12,10 @@ def index(request):
 def channel(request, slug):
     channel = get_object_or_404(Channel, slug=slug)
     try:
-        control_meta = ControlMeta.objects.filter(on_air=True, end_time__gt=timezone.now()).order_by('end_time')[0]
+        control_meta = ControlMeta.objects.filter(on_air=True, end_time__gt=timezone.localtime(timezone.now())).order_by('end_time')[0]
     except:
-        raise Http404("請付錢")
-    performers = Performer.objects.filter(channel=channel, start_time__gt=timezone.now()).exclude(pk=control_meta.performer.pk).order_by('start_time')[0:4]
+        raise Http404("錯誤")
+    performers = Performer.objects.filter(channel=channel, start_time__gt=timezone.localtime(timezone.now())).exclude(pk=control_meta.performer.pk).order_by('start_time')[0:4]
     sponsors = Sponsor.objects.all()
 
 
