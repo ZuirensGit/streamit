@@ -110,7 +110,11 @@
                   {% for sponsor in sponsors %}
                     <section class="image-bg overlay pt180 pb180 pt-xs-96 pb-xs-96 slide">
                       <div class="background-image-holder">
-                            <img alt="image" class="background-image" src="{{ sponsor.background.url }}" />
+                        {% if sponsor.background %}
+                          <img alt="image" class="background-image" src="{{ sponsor.background.url }}" />
+                        {% else %}
+                          <img alt="image" class="background-image" src="{% static "img/pioneer-dj.jpg" %}" />
+                        {% endif %}
                       </div>
                         <div class="container">
                             <div class="row">

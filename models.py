@@ -60,7 +60,7 @@ class Performer(models.Model):
 class Sponsor(models.Model):
     name = models.CharField(max_length=31)
     description = models.TextField()
-    background = models.ImageField(upload_to='sponsor_background/')
+    background = models.ImageField(upload_to='sponsor_background/', null=True, blank=True)
 
     def __str__(self):
         return self.name
