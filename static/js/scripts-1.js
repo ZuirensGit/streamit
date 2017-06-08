@@ -177,20 +177,20 @@ $(document).ready(function() {
 
     // Instagram Feed
 
-    if($('.instafeed').length){
-    	jQuery.fn.spectragram.accessData = {
-			accessToken: '1038415.601b366.86e0eb63bff243ebad39e263a0485067',
-			clientID: '601b3664306a4bcbbe32cfe5137bf681'
-		};
-
-        $('.instafeed').each(function() {
-            var feedID = $(this).attr('data-user-name') + '_';
-            $(this).children('ul').spectragram('getUserFeed', {
-                query: feedID,
-                max: 3
-            });
-        });
-    }
+    // if($('.instafeed').length){
+    // 	jQuery.fn.spectragram.accessData = {
+		// 	accessToken: '1038415.601b366.86e0eb63bff243ebad39e263a0485067',
+		// 	clientID: '601b3664306a4bcbbe32cfe5137bf681'
+		// };
+    //
+    //     $('.instafeed').each(function() {
+    //         var feedID = $(this).attr('data-user-name') + '_';
+    //         $(this).children('ul').spectragram('getUserFeed', {
+    //             query: feedID,
+    //             max: 3
+    //         });
+    //     });
+    // }
 
 
 
