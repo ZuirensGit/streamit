@@ -191,7 +191,7 @@ and (min-device-width : 320px)
 and (max-device-width : 568px)
 and (orientation : landscape) {
   .cover .align-bottom {
-    bottom: 42px !important;
+    bottom: 32px !important;
   }
 }
 /*!---------- 2. MIXINS ----------*/
