@@ -47,4 +47,4 @@ def channel(request, slug):
         'sponsors': sponsors,
     }
 
-    return render(request, 'index-1.html', context)
+    return render(request, 'index.html', context)

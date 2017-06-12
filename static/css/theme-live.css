@@ -186,6 +186,14 @@ hr.short-thick {
     bottom: 0px !important;
   }
 }
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px)
+and (orientation : landscape) {
+  .cover .align-bottom {
+    bottom: 42px !important;
+  }
+}
 /*!---------- 2. MIXINS ----------*/
 .v-align-children {
   display: -webkit-flex;
