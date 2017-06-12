@@ -584,18 +584,25 @@ $mobile.css('height', portrait);
 window.onorientationchange = function(){
  location.reload();
 }
-// if(window.innerWidth > window.innerHeight){
-//
-// // WORKAROUND: converting 90vh to px
-// $element = $('.fullscreen');
-// function fixMobileSafariViewport() {
-// $element.css('height', window.innerHeight * 0.9);
-// }
-//
-// // listen to portrait/landscape changes
-// window.addEventListener('orientationchange', fixMobileSafariViewport, true);
-// fixMobileSafariViewport();
-// }
+
+function isLandscape() {
+    return (window.orientation === 90 || window.orientation === -90);
+}
+
+if (isLandscape()) {
+  // WORKAROUND: converting 90vh to px
+  $element = $('.fullscreen');
+  function fixMobileSafariViewport() {
+  $element.css('height', window.innerHeight * 0.9);
+  }
+
+  // listen to portrait/landscape changes
+  window.addEventListener('orientationchange', fixMobileSafariViewport, true);
+  fixMobileSafariViewport();
+}
+
+
+
 
 /*\
 |*|  COOKIE LIBRARY THANKS TO MDN
