@@ -171,11 +171,19 @@ hr.short-thick {
   .hidden-sm {
     display: none;
   }
+  .cover .align-bottom {
+    bottom: 0px !important;
+  }
 }
 @media all and (max-width: 767px) {
   .spread-children * {
     margin-left: 6px;
     margin-right: 6px;
+  }
+}
+@media (max-width: 991px) and (min-width: 768px)  {
+  .cover .align-bottom {
+    bottom: 0px !important;
   }
 }
 /*!---------- 2. MIXINS ----------*/

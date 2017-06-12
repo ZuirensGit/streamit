@@ -179,8 +179,8 @@ $(document).ready(function() {
 
     if($('.instafeed').length){
     	jQuery.fn.spectragram.accessData = {
-			accessToken: '4320925417.6cd73d9.ff1d4aea895543e492b53235bdd583e4',
-			clientID: '6cd73d98f36d42a2a2e724c33ca9ef23'
+			accessToken: '4320925417.c23cd04.311de3c36366422eaa06fe8ca938b9fe',
+			clientID: 'c23cd04746df4584a931985119a95b7c'
 		};
 
         $('.instafeed').each(function() {
@@ -573,6 +573,29 @@ function prepareSignup(iFrame){
 }
 
 
+
+// portrait/landscape changes 100vh
+
+var $mobile = $('.fullscreen'),
+portrait = window.innerHeight;
+$mobile.css('height', portrait);
+
+// (orientationchange)
+window.onorientationchange = function(){
+ location.reload();
+}
+// if(window.innerWidth > window.innerHeight){
+//
+// // WORKAROUND: converting 90vh to px
+// $element = $('.fullscreen');
+// function fixMobileSafariViewport() {
+// $element.css('height', window.innerHeight * 0.9);
+// }
+//
+// // listen to portrait/landscape changes
+// window.addEventListener('orientationchange', fixMobileSafariViewport, true);
+// fixMobileSafariViewport();
+// }
 
 /*\
 |*|  COOKIE LIBRARY THANKS TO MDN
