@@ -14,6 +14,18 @@
     <meta property="og:description" content="{{ control_meta.og_description }}"/>
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ control_meta.og_image.url }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=0.9">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="{% static "img/apple-touch-icon-iphone.png" %}">
+    <link rel="img/apple-touch-icon" sizes="76x76" href="{% static "img/ouch-icon-ipad.png" %}">
+    <link rel="img/apple-touch-icon" sizes="120x120" href="{% static "img/touch-icon-iphone-retina.png" %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static "img/touch-icon-ipad-retina.png" %}">
+    <link rel="apple-touch-icon" sizes="167x167" href="{% static "img/ipad-pro.png" %}">
+    <link rel="icon" type="image/png" href="{% static "img/favicon-16x16.png" %}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{% static "img/favicon-32x32.png" %}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{% static "img/favicon-96x96.png" %}" sizes="96x96">
+
     <link rel="stylesheet" href="{% static "css/skin/skin.css" %}">
     <link rel="stylesheet" href="{% static "css/flowplayer.background.css" %}">
     <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" type="text/css" media="all" />

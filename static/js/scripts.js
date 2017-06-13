@@ -573,34 +573,41 @@ function prepareSignup(iFrame){
 }
 
 
-
-// portrait/landscape changes 100vh
-
-var $mobile = $('.fullscreen'),
-portrait = window.innerHeight;
-$mobile.css('height', portrait);
-
 // (orientationchange)
 window.onorientationchange = function(){
  location.reload();
 }
 
+// Portrait 100vh to px
+function isPortrait() {
+    return window.innerHeight > window.innerWidth;
+}
+if (isPortrait()) {
+  $element = $('.fullscreen');
+  $element.css('height', window.innerHeight);
+}
+
+// Landscape 90vh to px
 function isLandscape() {
     return (window.orientation === 90 || window.orientation === -90);
 }
-
 if (isLandscape()) {
-  // WORKAROUND: converting 90vh to px
   $element = $('.fullscreen');
-  function fixMobileSafariViewport() {
   $element.css('height', window.innerHeight * 0.9);
-  }
-
-  // listen to portrait/landscape changes
-  window.addEventListener('orientationchange', fixMobileSafariViewport, true);
-  fixMobileSafariViewport();
 }
 
+// Mobile Safari in standalone mode
+if (window.navigator.standalone) {
+
+  var winH = window.innerHeight ? window.innerHeight : $(window).height();
+
+// set the hight of you app
+$('.fullscreen').css('height', winH);
+
+}
+
+// scroll to top
+window.scrollTo(0,0);
 
 
 
