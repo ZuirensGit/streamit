@@ -1,0 +1,109 @@
+section.bg-primary {
+  position: relative;
+}
+
+/*control entire size*/
+.wrap-swiper {
+  box-sizing: content-box;
+  position: relative;
+  background-color: #141414;
+  max-width: 100%;
+  top: 0;
+  height: 10vh;
+  overflow: hidden;
+  padding: 10px 30px;
+}
+
+.replay-swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.replay-swiper-wrapper {
+  position: relative;
+  display: flex;
+}
+
+/*flex item*/
+.replay-swiper-slide {
+  color: black;
+  max-width: 20%;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+.replay-swiper-slide:hover {
+  border: solid 1px white;
+}
+
+/*.swiper-slide:active {
+  border: solid 1px red;
+}*/
+
+.swiper-slide-white-border {
+  border: solid 1px white;
+}
+
+.replay-div {
+  position: relative;
+  background-color: black;
+  width: 100%;
+  height: 0;
+  transition-duration: 0.5s;
+  overflow: hidden;
+}
+
+.expand-replay-div {
+  position: relative;
+  height:  90vh;
+}
+
+.replay-div-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-position:center;
+  transition-duration: 0.5s;
+}
+
+.close-div {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  cursor: pointer;
+  font-size: 5rem;
+}
+
+.replay-div-content-text {
+  position: absolute;
+  bottom: 15%;
+  left: 10%;
+}
+
+.replay-div-content-text h2 {
+  color: white;
+}
+
+.replay-figure {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.replay-img {
+  opacity: 0.5;
+}
+
+.description-figcaption {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  color: white;
+}

@@ -15,6 +15,7 @@
 
 .sponsor-slider {
   position: relative;
+  overflow: hidden;
 }
 .blank-div {
   clear: both;
@@ -34,4 +35,11 @@
   top: 50%;
   left: 1%;
   color: white;
+}
+
+
+.sponsor-swiper-container {
+  position: relative;
+  background-color: #13181d;
+  overflow: hidden;
 }

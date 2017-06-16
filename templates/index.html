@@ -37,6 +37,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:100,300,400,700,700italic" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{% static "css/sponsor-slider.css" %}">
     <script src="https://use.fontawesome.com/9a064df3a3.js"></script>
+    <link rel="stylesheet" href="{% static "swiper/css/swiper.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/replay-slider.css" %}">
+
 
     <style>
         .flowplayer a {
@@ -87,7 +90,33 @@
       				<h5 class="uppercase mb0 hidden-sm">{{ channel.main_slogan }}</h5>
       		</div>
       </section>
+      <div class="wrap-swiper" id='wrap-swiper'>
+        <div class="swiper-button-prev swiper-button-white replay-swiper-button-prev"></div>
+        <div class="swiper-button-next swiper-button-white replay-swiper-button-next"></div>
+        <div class="swiper-container replay-swiper-container">
+            <div class="swiper-wrapper replay-swiper-wrapper">
+              {% for replay in replay %}
+                <div class="swiper-slide replay-swiper-slide" id="{{ replay.pk }}-item" data-pk="{{ replay.pk }}">
+                  <figure class='replay-figure'>
+                    <img class='replay-img' src="{{ replay.background.url }}" alt="">
+                    <figcaption class='description-figcaption'>{{ replay.performer }}<br>{{ replay.date }}</figcaption>
+                  </figure>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
+      </div>
+        <div class="replay-div">
+          <div class="replay-div-content"></div>
+          <div class="replay-div-content-text">
+          </div>
+          <div class="close-div">
+            &times;
+          </div>
+          <!-- <i class="fa fa-times close-div fa-3x" aria-hidden="true"></i> -->
+        </div>
         <section class="bg-primary pt180 pb180 pt-xs-96 pb-xs-96">
+
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4 col-md-offset-1 text-right text-left-xs col-sm-5">
@@ -109,33 +138,33 @@
                 </div>
                 <!--end of container-->
             </section>
-              <div class="sponsor-slider">
-                {% if sponsors|length > 1 %}
-                <i class="fa fa-chevron-left fa-3x" aria-hidden="true"></i>
-                <i class="fa fa-chevron-right fa-3x" aria-hidden="true"></i>
-                {% endif %}
-                <figure>
-                  {% for sponsor in sponsors %}
-                    <section class="image-bg overlay pt180 pb180 pt-xs-96 pb-xs-96 slide">
-                      <div class="background-image-holder">
-                        <img alt="image" class="background-image" src="{{ sponsor.background.url }}" />
-                      </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-5 col-md-offset-1 col-sm-6">
-                                  <h4 class="bold uppercase italic mb8">{{ sponsor.name }}</h4>
-                                  <h6 class="uppercase mb0">{{ sponsor.description }}</h6>
+              <div class="sponsor-swiper-container">
+                  <div class="swiper-wrapper">
+                      {% for sponsor in sponsors %}
+                      <div class="swiper-slide">
+                        <section class="image-bg overlay pt180 pb180 pt-xs-96 pb-xs-96 slide">
+                          <div class="background-image-holder">
+                            <img alt="image" class="background-image" src="{{ sponsor.background.url }}" />
+                          </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-5 col-md-offset-1 col-sm-6">
+                                      <h4 class="bold uppercase italic mb8">{{ sponsor.name }}</h4>
+                                      <h6 class="uppercase mb0">{{ sponsor.description }}</h6>
+                                    </div>
                                 </div>
+                                <!--end of row-->
                             </div>
-                            <!--end of row-->
+                            <!--end of container-->
+                          </section>
                         </div>
-                        <!--end of container-->
-                      </section>
-                    {% endfor %}
-                </figure>
-                <div class="blank-div"></div>
+                        {% endfor %}
+                  </div>
+                  {% if sponsors|length > 1 %}
+                  <div class="swiper-button-prev swiper-button-white sponsor-swiper-button-prev"></div>
+                  <div class="swiper-button-next swiper-button-white sponsor-swiper-button-next"></div>
+                  {% endif %}
               </div>
-
               <section class="bg-secondary">
                           <div class="container">
                               <div class="row v-align-children">
@@ -215,6 +244,9 @@
     <script src="{% static "js/flowplayer.hlsjs.min.js" %}"></script>
     <script src="{% static "js/flowplayer.background.min.js" %}"></script>
 
+    <script src="{% static "swiper/js/swiper.min.js" %}"></script>
+    <script src="{% static "js/replay-slider.js" %}"></script>
+
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -287,6 +319,79 @@
       ga('send', 'pageview');
 
     </script>
+
+    <script type="text/javascript">
+      var last
+      {% for replay in replay %}
+      $('#{{ replay.pk }}-item').click(function() {
+        var replay_pk = $('#{{ replay.pk }}-item').data('pk')
+        $(".swiper-slide").each(function(){
+          if ($(this).hasClass('swiper-slide-white-border')) {
+            $(this).removeClass('swiper-slide-white-border')
+          }
+        });
+        $(this).addClass('swiper-slide-white-border')
+        if (last === replay_pk) {} else {
+          last = replay_pk
+          setTimeout(function() {
+            $('.replay-div-content').css('opacity', '1')
+          }, 300)
+
+          $.ajax({
+            url: "{% url 'replay' %}",
+            type: 'GET',
+            data: { pk: replay_pk},
+            success: function(data) {
+              $('.replay-div-content').css('background-image', 'url(' + data.background + ')')
+              $(".replay-div-content-text").html('');
+              $(".replay-div-content-text").html(
+                "<h2 class='mb0 uppercase bold'>"+data.performer+" <br>"+data.description+" <br>"+data.date+" <br>"+"</h2>"
+              ).hide().fadeIn(300);
+            },
+            error: function(err) {
+              console.log(err)
+            },
+          });
+        }
+
+        $('.replay-div').addClass('expand-replay-div');
+
+        $('html, body').animate({
+          scrollTop: $("#wrap-swiper").offset().top
+        }, 500);
+      });
+
+      $('.close-div').click(function() {
+        $('#'+last+'-item').removeClass('swiper-slide-white-border')
+        last = ''
+        $('.replay-div').removeClass('expand-replay-div')
+        $('.replay-div-content').css('opacity', '0')
+        $(".replay-div-content-text").fadeOut(200);
+        setTimeout(function() {
+          $('.replay-div-content').css('background-image', '')
+        }, 300);
+
+
+      });
+      {% endfor %}
+
+      var mySwiper = new Swiper ('.sponsor-swiper-container', {
+        // Optional parameters
+        direction: 'horizontal',
+        slidesPerView: '1',
+        {% if sponsors|length == 1 %}
+        allowSwipeToPrev: false,
+        allowSwipeToNext: false,
+        {% endif %}
+
+        nextButton: '.sponsor-swiper-button-next',
+        prevButton: '.sponsor-swiper-button-prev',
+
+      })
+
+    </script>
+
+  </body>
 </body>
 
 </html>

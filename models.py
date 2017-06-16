@@ -72,3 +72,15 @@ class Sponsor(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Replay(models.Model):
+    channel = models.ForeignKey('Channel')
+    performer = models.ForeignKey('Performer')
+    replay_source = models.CharField(max_length=1023, blank=True)
+    description = models.TextField(default='zuirens')
+    background = models.ImageField(default=static('img/Zuirens-bg.jpg'), upload_to='replay_background/')
+    date = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return self.performer.name

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Channel, ControlMeta, Performer, Sponsor
+from .models import Channel, ControlMeta, Performer, Sponsor, Replay
 
 
 class ChannelAdmin(admin.ModelAdmin):
@@ -16,9 +16,13 @@ class PerformerAdmin(admin.ModelAdmin):
 class SponsorAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
 
+class ReplayAdmin(admin.ModelAdmin):
+    list_display = ('performer', 'date')
+
 
 
 admin.site.register(Channel, ChannelAdmin)
 admin.site.register(ControlMeta, ControlMetaAdmin)
 admin.site.register(Performer, PerformerAdmin)
 admin.site.register(Sponsor, SponsorAdmin)
+admin.site.register(Replay, ReplayAdmin)
