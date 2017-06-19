@@ -90,6 +90,7 @@
       				<h5 class="uppercase mb0 hidden-sm">{{ channel.main_slogan }}</h5>
       		</div>
       </section>
+      {% if replay %}
       <div class="wrap-swiper" id='wrap-swiper'>
         <div class="swiper-button-prev swiper-button-white replay-swiper-button-prev"></div>
         <div class="swiper-button-next swiper-button-white replay-swiper-button-next"></div>
@@ -106,6 +107,7 @@
             </div>
         </div>
       </div>
+      {% endif %}
         <div class="replay-div">
           <div class="replay-div-content"></div>
           <div class="replay-div-content-text">
@@ -325,12 +327,12 @@
       {% for replay in replay %}
       $('#{{ replay.pk }}-item').click(function() {
         var replay_pk = $('#{{ replay.pk }}-item').data('pk')
-        $(".swiper-slide").each(function(){
-          if ($(this).hasClass('swiper-slide-white-border')) {
-            $(this).removeClass('swiper-slide-white-border')
+        $(".replay-img").each(function(){
+          if ($(this).hasClass('replay-img-bright')) {
+            $(this).removeClass('replay-img-bright')
           }
         });
-        $(this).addClass('swiper-slide-white-border')
+        $('#{{ replay.pk }}-item .replay-figure .replay-img').addClass('replay-img-bright')
         if (last === replay_pk) {} else {
           last = replay_pk
           setTimeout(function() {
@@ -343,7 +345,7 @@
             data: { pk: replay_pk},
             success: function(data) {
               $('.replay-div-content').css('background-image', 'url(' + data.background + ')')
-              $(".replay-div-content-text").html('');
+              // $(".replay-div-content-text").html('');
               $(".replay-div-content-text").html(
                 "<h2 class='mb0 uppercase bold'>"+data.performer+" <br>"+data.description+" <br>"+data.date+" <br>"+"</h2>"
               ).hide().fadeIn(300);
@@ -362,7 +364,7 @@
       });
 
       $('.close-div').click(function() {
-        $('#'+last+'-item').removeClass('swiper-slide-white-border')
+        $('#'+last+'-item .replay-figure .replay-img').removeClass('replay-img-bright')
         last = ''
         $('.replay-div').removeClass('expand-replay-div')
         $('.replay-div-content').css('opacity', '0')

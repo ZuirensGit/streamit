@@ -4,7 +4,6 @@ section.bg-primary {
 
 /*control entire size*/
 .wrap-swiper {
-  box-sizing: content-box;
   position: relative;
   background-color: #141414;
   max-width: 100%;
@@ -32,17 +31,11 @@ section.bg-primary {
   cursor: pointer;
 }
 
-.replay-swiper-slide:hover {
-  border: solid 1px white;
+.replay-swiper-slide:hover .replay-img {
+  opacity: 1;
 }
 
-/*.swiper-slide:active {
-  border: solid 1px red;
-}*/
 
-.swiper-slide-white-border {
-  border: solid 1px white;
-}
 
 .replay-div {
   position: relative;
@@ -66,7 +59,7 @@ section.bg-primary {
   background-size: cover;
   background-repeat:no-repeat;
   background-position:center;
-  transition-duration: 0.5s;
+  transition: 0.5s;
 }
 
 .close-div {
@@ -97,7 +90,12 @@ section.bg-primary {
 }
 
 .replay-img {
-  opacity: 0.5;
+  opacity: 0.3;
+}
+
+
+.replay-img-bright {
+  opacity: 1;
 }
 
 .description-figcaption {
