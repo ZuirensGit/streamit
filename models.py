@@ -28,7 +28,7 @@ class ControlMeta(models.Model):
     og_title = models.CharField(max_length=100, default='zuirens')
     og_description = models.TextField(blank=True)
     og_image = models.ImageField(upload_to='og_image/', null=True, blank=True, default=static('img/Zuirens-bg.jpg'))
-    performer = models.ForeignKey('performer')
+    performer = models.ForeignKey('performer', null=True, blank=True)
     stream_source = models.CharField(max_length=1023, blank=True)
     background = models.ImageField(upload_to='website_background/', null=True, blank=True, default=static('img/Zuirens-bg.jpg'))
     viewer_scaler = models.FloatField(default=1.0)
