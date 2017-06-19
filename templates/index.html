@@ -54,6 +54,9 @@
         /*.overlay .fs-vid-background:before {
             background: none !important;
         }*/
+        .flowplayer .fp-message.fp-shown {
+          display: none !important;
+        }
 
     </style>
 </head>
@@ -85,7 +88,7 @@
             <h2 class="mb0 uppercase hidden-sm">Zuirens</h2>
             <h2 class="mb0 uppercase bold">{{ channel.main_title }}</h2>
       				<h4 class="mb32 large uppercase"> {{ control_meta.performer }} <br>
-                          {{ control_meta.start_time|date:"H : i" }} - {{ control_meta.end_time|date:"H : i" }}<br> {{ control_meta.performer.start_time|date:"m / d D" }}
+                          {{ control_meta.start_time|date:"H : i" }} - {{ control_meta.end_time|date:"H : i" }}<br> {{ control_meta.start_time|date:"m / d D" }}
                         </h4>
       				<h5 class="uppercase mb0 hidden-sm">{{ channel.main_slogan }}</h5>
       		</div>
