@@ -42,13 +42,14 @@ section.bg-primary {
   background-color: black;
   width: 100%;
   height: 0;
-  transition-duration: 0.5s;
+  transition: 0.5s height;
   overflow: hidden;
 }
 
 .expand-replay-div {
   position: relative;
   height:  90vh;
+  transition: 0.5s height;
 }
 
 .replay-div-content {
@@ -59,8 +60,10 @@ section.bg-primary {
   background-size: cover;
   background-repeat:no-repeat;
   background-position:center;
-  transition: 0.5s;
+  /*transition: 0.5s background-image;*/
+  /*transition: 0.5s;*/
 }
+
 
 .close-div {
   position: absolute;

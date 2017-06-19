@@ -75,7 +75,7 @@
     <div class="main-container">
       <section class="fullscreen cover image-bg">
       		<div class="background-image-holder">
-              {% if not control_meta.stream_source %}
+              {% if not control_meta.on_air %}
         				<img alt="image" class="background-image" src="{{ control_meta.background.url }}" />
               {% else %}
         				<div id="hlsjslive1" class="fs-vid-background" style="background-color: #000;"></div>
@@ -85,7 +85,7 @@
             <h2 class="mb0 uppercase hidden-sm">Zuirens</h2>
             <h2 class="mb0 uppercase bold">{{ channel.main_title }}</h2>
       				<h4 class="mb32 large uppercase"> {{ control_meta.performer }} <br>
-                          {{ control_meta.performer.start_time|date:"H : i" }} - {{ control_meta.performer.end_time|date:"H : i" }}<br> {{ control_meta.performer.start_time|date:"m / d D" }}
+                          {{ control_meta.start_time|date:"H : i" }} - {{ control_meta.end_time|date:"H : i" }}<br> {{ control_meta.performer.start_time|date:"m / d D" }}
                         </h4>
       				<h5 class="uppercase mb0 hidden-sm">{{ channel.main_slogan }}</h5>
       		</div>
@@ -110,8 +110,7 @@
       {% endif %}
         <div class="replay-div">
           <div class="replay-div-content"></div>
-          <div class="replay-div-content-text">
-          </div>
+          <div class="replay-div-content-text"></div>
           <div class="close-div">
             &times;
           </div>
@@ -127,10 +126,10 @@
                         </div>
                         <div class="col-md-5 col-sm-7">
                           <ul class="mb0">
-                            {% for performer in performers %}
+                            {% for up_comming in up_commings %}
                               <li class="mb8">
-                                  <h5 class="uppercase inline-block mb0">{{ performer.name }} /&nbsp;</h5>
-                                  <span>{{ performer.start_time|date:"m/d" }}</span>
+                                  <h5 class="uppercase inline-block mb0">{{ up_comming.name }} /&nbsp;</h5>
+                                  <span>{{ up_comming.start_time|date:"m/d" }}</span>
                               </li>
                             {% endfor %}
                           </ul>
@@ -345,7 +344,6 @@
             data: { pk: replay_pk},
             success: function(data) {
               $('.replay-div-content').css('background-image', 'url(' + data.background + ')')
-              // $(".replay-div-content-text").html('');
               $(".replay-div-content-text").html(
                 "<h2 class='mb0 uppercase bold'>"+data.performer+" <br>"+data.description+" <br>"+data.date+" <br>"+"</h2>"
               ).hide().fadeIn(300);
@@ -366,12 +364,10 @@
       $('.close-div').click(function() {
         $('#'+last+'-item .replay-figure .replay-img').removeClass('replay-img-bright')
         last = ''
-        $('.replay-div').removeClass('expand-replay-div')
+        $('.replay-div-content').css('background-image', '')
         $('.replay-div-content').css('opacity', '0')
         $(".replay-div-content-text").fadeOut(200);
-        setTimeout(function() {
-          $('.replay-div-content').css('background-image', '')
-        }, 300);
+        $('.replay-div').removeClass('expand-replay-div')
 
 
       });

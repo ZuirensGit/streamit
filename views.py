@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, get_object_or_404, HttpRespon
 from django.http import JsonResponse
 from django.utils import timezone
 from django.http import Http404
+from datetime import timedelta
 
 from .models import Channel, ControlMeta, Performer, Sponsor, Replay
 
@@ -14,17 +15,18 @@ def index(request):
 def channel(request, slug):
     channel = get_object_or_404(Channel, slug=slug)
     try:
-        control_meta = ControlMeta.objects.filter(on_air=True, end_time__gt=timezone.localtime(timezone.now())).order_by('end_time')[0]
+        control_meta = ControlMeta.objects.filter(channel=channel, publish=True, end_time__gt=timezone.localtime(timezone.now()) - timedelta(hours=1)).order_by('end_time')[0]
     except:
-        raise Http404("錯誤")
-    performers = Performer.objects.filter(channel=channel, start_time__gt=timezone.localtime(timezone.now())).exclude(pk=control_meta.performer.pk).order_by('start_time')[0:4]
+        print('no')
+        control_meta = ControlMeta.objects.filter(channel=channel, publish=True, end_time__lt=timezone.localtime(timezone.now())).order_by('-end_time')[0]
+    up_commings = ControlMeta.objects.filter(channel=channel, start_time__gt=timezone.localtime(timezone.now())).exclude(pk=control_meta.pk).order_by('start_time')[0:4]
     sponsors = Sponsor.objects.all()
     replay = Replay.objects.filter(channel=channel)
 
     context = {
         'channel': channel,
         'control_meta': control_meta,
-        'performers': performers,
+        'up_commings': up_commings,
         'sponsors': sponsors,
         'replay': replay,
     }

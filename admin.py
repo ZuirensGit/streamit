@@ -7,11 +7,11 @@ class ChannelAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 class ControlMetaAdmin(admin.ModelAdmin):
-    list_editable = ['stream_source', 'on_air']
-    list_display = ('name', 'stream_source', 'end_time', 'on_air')
+    list_editable = ['stream_source' ,'publish' ,'on_air']
+    list_display = ('name', 'performer', 'stream_source', 'start_time', 'end_time', 'publish', 'on_air', )
 
 class PerformerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'start_time', 'end_time')
+    list_display = ('name', 'description')
 
 class SponsorAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
