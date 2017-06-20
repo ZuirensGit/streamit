@@ -85,7 +85,7 @@ class Replay(models.Model):
 
 def replay_pre_save_receiver(sender, instance, *args, **kwargs):
     instance.performer = instance.control_meta.performer
-    instance.background = instance.control_meta.background
+    # instance.background = instance.control_meta.background
     instance.date = instance.control_meta.start_time
 
 pre_save.connect(replay_pre_save_receiver, sender=Replay)

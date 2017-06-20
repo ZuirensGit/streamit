@@ -81,7 +81,7 @@
               {% if not control_meta.on_air %}
         				<img alt="image" class="background-image" src="{{ control_meta.background.url }}" />
               {% else %}
-        				<div id="hlsjslive1" class="fs-vid-background" style="background-color: #000;"></div>
+        				<div id="hlsjslive1" class="fp-minimal fs-vid-background" style="background-color: #000;"></div>
               {% endif %}
       		</div>
       		<div class="align-bottom">
@@ -112,12 +112,13 @@
       </div>
       {% endif %}
         <div class="replay-div">
-          <div class="replay-div-content"></div>
+          <div class="replay-div-content">
+            <!-- <div id="hlsjslive2" class="fp-minimal fs-vid-background" style="background-color: #000;"></div> -->
+          </div>
           <div class="replay-div-content-text"></div>
           <div class="close-div">
             &times;
           </div>
-          <!-- <i class="fa fa-times close-div fa-3x" aria-hidden="true"></i> -->
         </div>
         <section class="bg-primary pt180 pb180 pt-xs-96 pb-xs-96">
 
@@ -263,15 +264,11 @@
     // flowplayer.conf.analytics = "UA-1718206-52";
 
         window.onload = function() {
-            flowplayer("#hlsjslive1", {
+            var player1 = flowplayer("#hlsjslive1", {
                 safari: true,
-                background: true,
                 live: true,
                 autoplay: true,
                 adaptiveRatio: true,
-                background: {
-                audio: true,
-                  },
                 volume: 1.0,
                 clip: {
                     sources: [{
@@ -282,35 +279,99 @@
 
             });
 
+          var last
+          {% for replay in replay %}
+          $('#{{ replay.pk }}-item').click(function() {
+            var replay_pk = $('#{{ replay.pk }}-item').data('pk')
+            $(".replay-img").each(function(){
+              if ($(this).hasClass('replay-img-bright')) {
+                $(this).removeClass('replay-img-bright')
+              }
+            });
+            $('#{{ replay.pk }}-item .replay-figure .replay-img').addClass('replay-img-bright')
+            if (last === replay_pk) {} else {
+              {% if control_meta.on_air %}
+              player1.pause()
+              {% endif %}
+              $('.replay-div-content').css('background-image', '')
+              last = replay_pk
+              setTimeout(function() {
+                $('.replay-div-content').css('opacity', '1')
+              }, 300)
+
+              $.ajax({
+                url: "{% url 'replay' %}",
+                type: 'GET',
+                data: { pk: replay_pk},
+                success: function(data) {
+                  $(".replay-div-content").html('')
+                  if (data.replay_source) {
+                    // background-image: url(' + data.background + ')
+                    $(".replay-div-content").html('<div id="hlsjslive2" class="fp-minimal fs-vid-background" style="background-image: url(' + data.background + ');background-size: cover;"></div>');
+                    var player2 = flowplayer("#hlsjslive2", {
+                      autoplay: true,
+                      safari: true,
+                      adaptiveRatio: true,
+                      volume: 1.0,
+                      clip: {
+                          sources: [{
+                              type: "video/mp4",
+                              src: data.replay_source
+                              //cdn.flowplayer.org/202777/84049-bauhaus.m3u8
+                          }]
+                      }
+
+                    });
+                  } else {
+                    $('.replay-div-content').css('background-image', 'url(' + data.background + ')')
+                  }
+                  $(".replay-div-content-text").html(
+                    "<h2 class='mb0 uppercase bold'>"+data.performer+" <br>"+data.description+" <br>"+data.date+" <br>"+"</h2>"
+                  ).hide().fadeIn(300);
+                },
+                error: function(err) {
+                  console.log(err)
+                },
+              });
+            }
+
+            $('.replay-div').addClass('expand-replay-div');
+
+            $('html, body').animate({
+              scrollTop: $("#wrap-swiper").offset().top
+            }, 500);
+          });
+
+          $('.close-div').click(function() {
+            $('#'+last+'-item .replay-figure .replay-img').removeClass('replay-img-bright')
+            last = ''
+            $(".replay-div-content").html('')
+            $('.replay-div-content').css('background-image', '')
+            $('.replay-div-content').css('opacity', '0')
+            $(".replay-div-content-text").fadeOut(200);
+            $('.replay-div').removeClass('expand-replay-div')
+
+
+          });
+          {% endfor %}
+
+          var mySwiper = new Swiper ('.sponsor-swiper-container', {
+            // Optional parameters
+            direction: 'horizontal',
+            slidesPerView: '1',
+            {% if sponsors|length == 1 %}
+            allowSwipeToPrev: false,
+            allowSwipeToNext: false,
+            {% endif %}
+
+            nextButton: '.sponsor-swiper-button-next',
+            prevButton: '.sponsor-swiper-button-prev',
+
+          })
+
+
         };
-    </script>
-    <script type="text/javascript">
-      var slider_content_width = 100 / {{ sponsors|length }};
-      var slide_width = 100 * {{ sponsors|length }};
-      $('.sponsor-slider figure section.slide').width(slider_content_width + "%");
-      $('.sponsor-slider figure').width(slide_width + "%");
 
-      var slide_position = 1;
-      var end_position = {{ sponsors|length }};
-      var left = 0;
-
-      $('.fa-chevron-left').click(function() {
-        if (slide_position > 1) {
-          left += 100
-          $('.sponsor-slider figure').css('transition', '1s');
-          $('.sponsor-slider figure').css('left', left+'%');
-          slide_position -= 1;
-        }
-      });
-
-      $('.fa-chevron-right').click(function() {
-        if (slide_position < end_position) {
-          left -= 100
-          $('.sponsor-slider figure').css('transition', '1s');
-          $('.sponsor-slider figure').css('left', left+'%');
-          slide_position += 1;
-        }
-      });
     </script>
 
     <script>
@@ -325,70 +386,7 @@
     </script>
 
     <script type="text/javascript">
-      var last
-      {% for replay in replay %}
-      $('#{{ replay.pk }}-item').click(function() {
-        var replay_pk = $('#{{ replay.pk }}-item').data('pk')
-        $(".replay-img").each(function(){
-          if ($(this).hasClass('replay-img-bright')) {
-            $(this).removeClass('replay-img-bright')
-          }
-        });
-        $('#{{ replay.pk }}-item .replay-figure .replay-img').addClass('replay-img-bright')
-        if (last === replay_pk) {} else {
-          last = replay_pk
-          setTimeout(function() {
-            $('.replay-div-content').css('opacity', '1')
-          }, 300)
 
-          $.ajax({
-            url: "{% url 'replay' %}",
-            type: 'GET',
-            data: { pk: replay_pk},
-            success: function(data) {
-              $('.replay-div-content').css('background-image', 'url(' + data.background + ')')
-              $(".replay-div-content-text").html(
-                "<h2 class='mb0 uppercase bold'>"+data.performer+" <br>"+data.description+" <br>"+data.date+" <br>"+"</h2>"
-              ).hide().fadeIn(300);
-            },
-            error: function(err) {
-              console.log(err)
-            },
-          });
-        }
-
-        $('.replay-div').addClass('expand-replay-div');
-
-        $('html, body').animate({
-          scrollTop: $("#wrap-swiper").offset().top
-        }, 500);
-      });
-
-      $('.close-div').click(function() {
-        $('#'+last+'-item .replay-figure .replay-img').removeClass('replay-img-bright')
-        last = ''
-        $('.replay-div-content').css('background-image', '')
-        $('.replay-div-content').css('opacity', '0')
-        $(".replay-div-content-text").fadeOut(200);
-        $('.replay-div').removeClass('expand-replay-div')
-
-
-      });
-      {% endfor %}
-
-      var mySwiper = new Swiper ('.sponsor-swiper-container', {
-        // Optional parameters
-        direction: 'horizontal',
-        slidesPerView: '1',
-        {% if sponsors|length == 1 %}
-        allowSwipeToPrev: false,
-        allowSwipeToNext: false,
-        {% endif %}
-
-        nextButton: '.sponsor-swiper-button-next',
-        prevButton: '.sponsor-swiper-button-prev',
-
-      })
 
     </script>
 

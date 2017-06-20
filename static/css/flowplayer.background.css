@@ -16,11 +16,15 @@
   z-index: 2;
 }
 
-/*.flowplayer.is-background .fp-ui {
+.flowplayer.is-background .fp-ui {
+  display: none;
+}
+
+/*.flowplayer.is-background .fp-ui .fp-waiting, .fp-ui .fp-header, .fp-ui .fp-speed-flash, .fp-ui .fp-controls  {
   display: none;
 }*/
 
-.flowplayer.is-background .fp-ui .fp-waiting, .fp-ui .fp-header, .fp-ui .fp-speed-flash, .fp-ui .fp-controls  {
+.flowplayer.fp-minimal .fp-header .fp-fullscreen {
   display: none;
 }
 
