@@ -84,7 +84,7 @@ class Replay(models.Model):
         return self.performer.name
 
     class Meta:
-        ordering = ['-date',]
+        ordering = ['date',]
 
 def replay_pre_save_receiver(sender, instance, *args, **kwargs):
     instance.performer = instance.control_meta.performer
