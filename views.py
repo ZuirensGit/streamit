@@ -22,7 +22,7 @@ def channel(request, slug):
         control_meta = ControlMeta.objects.filter(channel=channel, publish=True, end_time__lt=timezone.localtime(timezone.now())).order_by('-end_time')[0]
     up_commings = ControlMeta.objects.filter(channel=channel, start_time__gt=timezone.localtime(timezone.now())).exclude(pk=control_meta.pk).order_by('start_time')[0:4]
     sponsors = Sponsor.objects.all()
-    replay = Replay.objects.filter(channel=channel)
+    replay = Replay.objects.filter(channel=channel).order_by('-date')
 
     context = {
         'channel': channel,
