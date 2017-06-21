@@ -26,6 +26,14 @@ section.bg-primary {
   display: flex;
 }
 
+.swiper-button-prev {
+  left: 2px !important;
+}
+
+.swiper-button-next {
+  right: 2px !important;
+}
+
 /*flex item*/
 .replay-swiper-slide {
   color: black;

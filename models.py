@@ -77,7 +77,7 @@ class Replay(models.Model):
     replay_source = models.CharField(max_length=1023, blank=True)
     performer = models.ForeignKey('Performer', null=True, blank=True)
     description = models.TextField(default='zuirens')
-    background = models.ImageField(upload_to='replay_background/', null=True, blank=True, default=static('img/Zuirens-bg.jpg'))
+    background = models.ImageField(upload_to='replay_background/', null=True, blank=True)
     date = models.DateField(default=timezone.now)
 
     def __str__(self):
