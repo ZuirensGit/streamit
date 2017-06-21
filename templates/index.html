@@ -40,7 +40,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:100,300,400,700,700italic" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{% static "css/sponsor-slider.css" %}">
     <script src="https://use.fontawesome.com/9a064df3a3.js"></script>
-    <link rel="stylesheet" href="{% static "swiper/css/swiper.min.css" %}">
+    <link rel="stylesheet" href="{% static "swiper/css/swiper.css" %}">
     <link rel="stylesheet" href="{% static "css/replay-slider.css" %}">
 
 
@@ -339,7 +339,7 @@
                     $('.replay-div-content').css('background-image', 'url(' + data.background + ')')
                   }
                   $(".replay-div-content-text").html(
-                    "<h2 class='mb0 uppercase bold'>{{ channel.main_title }}</h2><h4 class='mb32 large uppercase'>"+data.performer+" <br>"+data.date+" <br>"+"</h4>"
+                    "<h2 class='mb0 uppercase bold'>{{ channel.main_title }}</h2><h4 class='mb32 large uppercase'>"+data.performer+"</h4><h5 class='uppercase mb0'>"+data.date+"</h5>"
                   ).hide().fadeIn(300);
                   $('.replay-div').addClass('expand-replay-div');
                 },

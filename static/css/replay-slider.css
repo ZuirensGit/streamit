@@ -12,9 +12,8 @@ section.bg-primary {
   height: 10vh;
   /*min-height: 200px*/
   overflow: hidden;
-  padding: 10px 10px;
+  padding: 10px 30px;
 }
-
 
 
 .replay-swiper-container {
@@ -145,7 +144,7 @@ section.bg-primary {
   left: 6%;
 }
 
-.replay-div-content-text h4,.replay-div-content-text h2 {
+.replay-div-content-text h4,.replay-div-content-text h2, .replay-div-content-text h5 {
   color: white;
 }
 
