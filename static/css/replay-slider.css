@@ -38,7 +38,7 @@ section.bg-primary {
 .replay-swiper-slide {
   color: black;
   width: 20%;
-  min-width: 150px;
+  min-width: 172px;
   cursor: pointer;
   padding: 0 10px 0 0;
 }
@@ -93,6 +93,7 @@ section.bg-primary {
   position: absolute;
   color: white;
   z-index: 1000;
+  font-size: 16px;
 }
 
 .description-figcaption-performer {

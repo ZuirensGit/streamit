@@ -35,7 +35,7 @@ def channel(request, slug):
     return render(request, 'index.html', context)
 
 def replay(request):
-    replay =  get_object_or_404(Replay, pk=request.GET.get('pk'))
+    replay = get_object_or_404(Replay, pk=request.GET.get('pk'))
 
     performer = replay.performer.name
     replay_source = replay.replay_source
