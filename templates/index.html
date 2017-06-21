@@ -339,7 +339,7 @@
                     $('.replay-div-content').css('background-image', 'url(' + data.background + ')')
                   }
                   $(".replay-div-content-text").html(
-                    "<h4 class='mb32 large uppercase'>"+data.performer+" <br>"+data.date+" <br>"+"</h4>"
+                    "<h2 class='mb0 uppercase bold'>{{ channel.main_title }}</h2><h4 class='mb32 large uppercase'>"+data.performer+" <br>"+data.date+" <br>"+"</h4>"
                   ).hide().fadeIn(300);
                   $('.replay-div').addClass('expand-replay-div');
                 },

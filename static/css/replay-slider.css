@@ -145,7 +145,7 @@ section.bg-primary {
   left: 6%;
 }
 
-.replay-div-content-text h4 {
+.replay-div-content-text h4,.replay-div-content-text h2 {
   color: white;
 }
 
