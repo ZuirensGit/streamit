@@ -151,6 +151,12 @@ section.bg-primary {
   color: white;
 }
 
+@media screen and (max-device-width : 736px) {
+  .wrap-swiper {
+    padding: 10px 0;
+  }
+}
+
 @media screen and (max-device-width : 736px) and (orientation : landscape) {
   .wrap-swiper {
     padding: 0;
