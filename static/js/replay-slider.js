@@ -6,7 +6,7 @@ var mySwiper = new Swiper ('.swiper-container', {
   freeMode: true,
   freeModeMomentum: true,
   slidesPerView: 'auto',
-  spaceBetween: 20,
+  // spaceBetween: 20,
 
   // If we need pagination
   // pagination: '.swiper-pagination',

@@ -4,14 +4,18 @@ section.bg-primary {
 
 /*control entire size*/
 .wrap-swiper {
+  box-sizing: border-box;
   position: relative;
   background-color: #141414;
   max-width: 100%;
   top: 0;
   height: 10vh;
+  /*min-height: 200px*/
   overflow: hidden;
-  padding: 10px 30px;
+  padding: 10px 10px;
 }
+
+
 
 .replay-swiper-container {
   width: 100%;
@@ -27,12 +31,65 @@ section.bg-primary {
 .replay-swiper-slide {
   color: black;
   width: 20%;
-  min-width: 100px;
+  min-width: 150px;
   cursor: pointer;
+  padding: 0 10px 0 0;
 }
 
-.replay-swiper-slide:hover .replay-img {
+.replay-swiper-slide:last-child {
+  padding: 0;
+}
+
+.replay-swiper-slide:hover .replay-img{
   opacity: 1;
+}
+
+.replay-figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  /*text-align: center;*/
+}
+
+.img-shadow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right,rgba(0,0,0,1),rgba(0,0,0,1)30%, rgba(0,0,0,0) 100%);
+  z-index: 100;
+}
+
+.replay-img {
+  position: absolute;
+  vertical-align: top;
+  display: inline-block;
+  z-index: 10;
+  opacity: 0.6;
+  width: 60%;
+  /*min-height: 100%*/
+  /*height: 100%*/
+  right:0;
+  /*height: 100%;*/
+}
+
+.replay-img-bright {
+  opacity: 1;
+}
+
+
+.description-figcaption, .description-figcaption-performer {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  position: absolute;
+  color: white;
+  z-index: 1000;
+}
+
+.description-figcaption-performer {
+  bottom: 50%;
 }
 
 
@@ -52,6 +109,13 @@ section.bg-primary {
   transition: 0.5s height;
 }
 
+.replay-shadow {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+}
+
 .replay-div-content {
   position: absolute;
   width: 100%;
@@ -60,8 +124,6 @@ section.bg-primary {
   background-size: cover;
   background-repeat:no-repeat;
   background-position:center;
-  /*transition: 0.5s background-image;*/
-  /*transition: 0.5s;*/
 }
 
 
@@ -75,6 +137,7 @@ section.bg-primary {
   font-size: 5rem;
 }
 
+
 .replay-div-content-text {
   z-index: 1000;
   position: absolute;
@@ -82,43 +145,15 @@ section.bg-primary {
   left: 6%;
 }
 
-.replay-div-content-text h2 {
+.replay-div-content-text h4 {
   color: white;
 }
 
-.replay-figure {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-  /*text-align: center;*/
-}
-
-.shadow {
-  vertical-align: top;
-  display: inline-block;
-  width: 30%;
-  height: 100%;
-  background-color: black;
-}
-
-.replay-img {
-  vertical-align: top;
-  display: inline-block;
-  opacity: 0.3;
-  width: 100%;
-  /*height: 100%;*/
-}
-
-
-.replay-img-bright {
-  opacity: 1;
-}
-
-.description-figcaption {
-  bottom: 5%;
-  left: 5%;
-  /*transform: translate(-50%, -50%);*/
-  position: absolute;
-  color: white;
+@media screen and (max-device-width : 736px) and (orientation : landscape) {
+  .wrap-swiper {
+    padding: 0;
+  }
+  .replay-swiper-slide {
+    padding: 0;
+  }
 }

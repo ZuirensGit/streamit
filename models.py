@@ -77,15 +77,18 @@ class Replay(models.Model):
     replay_source = models.CharField(max_length=1023, blank=True)
     performer = models.ForeignKey('Performer', null=True, blank=True)
     description = models.TextField(default='zuirens')
-    background = models.ImageField(upload_to='replay_background/', null=True, blank=True)
+    background = models.ImageField(upload_to='replay_background/', null=True, blank=True, default=static('img/Zuirens-bg.jpg'))
     date = models.DateField(default=timezone.now)
 
     def __str__(self):
         return self.performer.name
 
-def replay_pre_save_receiver(sender, instance, *args, **kwargs):
-    instance.performer = instance.control_meta.performer
-    # instance.background = instance.control_meta.background
-    instance.date = instance.control_meta.start_time
+    class Meta:
+        ordering = ['-date',]
 
-pre_save.connect(replay_pre_save_receiver, sender=Replay)
+# def replay_pre_save_receiver(sender, instance, *args, **kwargs):
+#     instance.performer = instance.control_meta.performer
+#     instance.background = instance.control_meta.background
+#     instance.date = instance.control_meta.start_time
+#
+# pre_save.connect(replay_pre_save_receiver, sender=Replay)

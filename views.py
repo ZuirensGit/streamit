@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.http import Http404
 from datetime import timedelta
+import datetime
 
 from .models import Channel, ControlMeta, Performer, Sponsor, Replay
 
@@ -40,7 +41,7 @@ def replay(request):
     replay_source = replay.replay_source
     description = replay.description
     background = replay.background.url
-    date = replay.date
+    date = replay.date.strftime('%m / %d %Y')
 
     data = {
         'performer':performer,

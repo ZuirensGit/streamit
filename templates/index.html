@@ -6,6 +6,9 @@
 <head>
     <meta charset="utf-8">
     <title>Zuirens Live</title>
+
+    <meta name="format-detection" content="telephone=no">
+
     <meta name="description" content="">
     <!--You can use open graph tags to customize link previews-->
     <meta property="og:url" content="{{ control_meta.og_url }}"/>
@@ -95,15 +98,17 @@
       </section>
       {% if replay %}
       <div class="wrap-swiper" id='wrap-swiper'>
-        <div class="swiper-button-prev swiper-button-white replay-swiper-button-prev"></div>
-        <div class="swiper-button-next swiper-button-white replay-swiper-button-next"></div>
+        <div class="swiper-button-prev swiper-button-white replay-swiper-button-prev hidden-sm"></div>
+        <div class="swiper-button-next swiper-button-white replay-swiper-button-next hidden-sm"></div>
         <div class="swiper-container replay-swiper-container">
             <div class="swiper-wrapper replay-swiper-wrapper">
               {% for replay in replay %}
                 <div class="swiper-slide replay-swiper-slide" id="{{ replay.pk }}-item" data-pk="{{ replay.pk }}">
                   <figure class='replay-figure'>
+                    <div class="img-shadow"></div>
                     <img class='replay-img' src="{{ replay.background.url }}" alt="">
-                    <figcaption class='description-figcaption'>{{ replay.performer }}<br>{{ replay.date }}</figcaption>
+                    <figcaption class='description-figcaption-performer'>{{ replay.performer }}</figcaption>
+                    <figcaption class='description-figcaption'>{{ replay.date|date:"mdy" }}</figcaption>
                   </figure>
                 </div>
               {% endfor %}
@@ -289,7 +294,15 @@
               }
             });
             $('#{{ replay.pk }}-item .replay-figure .replay-img').addClass('replay-img-bright')
-            if (last === replay_pk) {} else {
+            if (last === replay_pk) {
+              last = ''
+              $(".replay-div-content").html('')
+              $('.replay-div-content').css('background-image', '')
+              $('.replay-div-content').css('opacity', '0')
+              $(".replay-div-content-text").fadeOut(200);
+              $('.replay-div').removeClass('expand-replay-div');
+              last = ''
+            } else {
               {% if control_meta.on_air %}
               player1.pause()
               {% endif %}
@@ -326,8 +339,9 @@
                     $('.replay-div-content').css('background-image', 'url(' + data.background + ')')
                   }
                   $(".replay-div-content-text").html(
-                    "<h2 class='mb0 uppercase bold'>"+data.performer+" <br>"+data.description+" <br>"+data.date+" <br>"+"</h2>"
+                    "<h4 class='mb32 large uppercase'>"+data.performer+" <br>"+data.date+" <br>"+"</h4>"
                   ).hide().fadeIn(300);
+                  $('.replay-div').addClass('expand-replay-div');
                 },
                 error: function(err) {
                   console.log(err)
@@ -335,7 +349,7 @@
               });
             }
 
-            $('.replay-div').addClass('expand-replay-div');
+
 
             $('html, body').animate({
               scrollTop: $("#wrap-swiper").offset().top
