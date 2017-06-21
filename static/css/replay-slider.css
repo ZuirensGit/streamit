@@ -38,7 +38,7 @@ section.bg-primary {
 .replay-swiper-slide {
   color: black;
   width: 20%;
-  min-width: 175px;
+  min-width: 180px;
   cursor: pointer;
   padding: 0 10px 0 0;
 }
