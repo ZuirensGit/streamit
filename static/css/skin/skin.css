@@ -993,7 +993,7 @@
   .flowplayer.fp-outlined .fp-nextbtn:before, .flowplayer.fp-minimal .fp-nextbtn:before {
     content: "\e212"; }
   .flowplayer .fp-color {
-    background-color: #00abcd;
+    background-color: #ffffff;
     fill: rgba(0, 0, 0, 0.2); }
   .flowplayer .fp-color-play {
     fill: transparent; }
