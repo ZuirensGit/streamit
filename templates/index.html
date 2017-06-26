@@ -284,6 +284,17 @@
 
             });
 
+
+          function closeReplayDiv() {
+            $('#'+last+'-item .replay-figure .replay-img').removeClass('replay-img-bright')
+            $(".replay-div-content").html('')
+            $('.replay-div-content').css('background-image', '')
+            $('.replay-div-content').css('opacity', '0')
+            $(".replay-div-content-text").fadeOut(200);
+            $('.replay-div').removeClass('expand-replay-div');
+            last = ''
+          }
+
           var last
           {% for replay in replay %}
           $('#{{ replay.pk }}-item').click(function() {
@@ -293,15 +304,8 @@
                 $(this).removeClass('replay-img-bright')
               }
             });
-            $('#{{ replay.pk }}-item .replay-figure .replay-img').addClass('replay-img-bright')
             if (last === replay_pk) {
-              last = ''
-              $(".replay-div-content").html('')
-              $('.replay-div-content').css('background-image', '')
-              $('.replay-div-content').css('opacity', '0')
-              $(".replay-div-content-text").fadeOut(200);
-              $('.replay-div').removeClass('expand-replay-div');
-              last = ''
+              closeReplayDiv()
             } else {
               {% if control_meta.on_air %}
               player1.pause()
@@ -357,17 +361,23 @@
           });
 
           $('.close-div').click(function() {
-            $('#'+last+'-item .replay-figure .replay-img').removeClass('replay-img-bright')
-            last = ''
-            $(".replay-div-content").html('')
-            $('.replay-div-content').css('background-image', '')
-            $('.replay-div-content').css('opacity', '0')
-            $(".replay-div-content-text").fadeOut(200);
-            $('.replay-div').removeClass('expand-replay-div')
-
-
+            closeReplayDiv()
           });
           {% endfor %}
+
+          $('.background-image-holder').click(function() {
+            if ("{{ control_meta.on_air }}" === "True"){
+              if ($('.replay-div').hasClass('expand-replay-div')) {
+                closeReplayDiv()
+                $('html, body').animate({
+                  scrollTop: $(".background-image-holder").offset().top
+                }, 500);
+              }
+            }
+
+
+          })
+
 
           var mySwiper = new Swiper ('.sponsor-swiper-container', {
             // Optional parameters
