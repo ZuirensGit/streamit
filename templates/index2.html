@@ -1,0 +1,420 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Zuirens Live</title>
+
+    <meta name="format-detection" content="telephone=no">
+
+    <meta name="description" content="">
+    <!--You can use open graph tags to customize link previews-->
+    <meta property="og:url" content="{{ control_meta.og_url }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="{{ control_meta.og_title }}"/>
+    <meta property="og:description" content="{{ control_meta.og_description }}"/>
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ control_meta.og_image.url }}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="{% static "img/apple-touch-icon-iphone.png" %}">
+    <link rel="img/apple-touch-icon" sizes="76x76" href="{% static "img/ouch-icon-ipad.png" %}">
+    <link rel="img/apple-touch-icon" sizes="120x120" href="{% static "img/touch-icon-iphone-retina.png" %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static "img/touch-icon-ipad-retina.png" %}">
+    <link rel="apple-touch-icon" sizes="167x167" href="{% static "img/ipad-pro.png" %}">
+    <link rel="icon" type="image/png" href="{% static "img/favicon-16x16.png" %}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{% static "img/favicon-32x32.png" %}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{% static "img/favicon-96x96.png" %}" sizes="96x96">
+
+    <link rel="stylesheet" href="{% static "css/skin/skin.css" %}">
+    <link rel="stylesheet" href="{% static "css/flowplayer.background.css" %}">
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static "css/themify-icons.css" %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static "css/flexslider.css" %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static "css/theme-live.css" %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static "css/font-robotocondensed.css" %}" rel="stylesheet" type="text/css" media="all" />
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:100,300,400,700,700italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static "css/sponsor-slider.css" %}">
+    <script src="https://use.fontawesome.com/9a064df3a3.js"></script>
+    <link rel="stylesheet" href="{% static "swiper/css/swiper.css" %}">
+    <link rel="stylesheet" href="{% static "css/replay-slider.css" %}">
+
+
+    <style>
+        .flowplayer a {
+            background: none !important;
+        }
+        #fp-background {
+            position: fixed;
+        }
+        .fp-mask {
+            display: none;
+        }
+        /*.overlay .fs-vid-background:before {
+            background: none !important;
+        }*/
+        .flowplayer .fp-message.fp-shown {
+          display: none !important;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="nav-container">
+        <a id="top"></a>
+        <nav class="absolute transparent">
+            <!-- <div class="nav-bar">
+                <div class="module left">
+                    <a href="{% url "index" %}">
+                        <img class="logo logo-light" alt="Foundry" src="{% static "img/logo-light.png" %}" />
+                        <img class="logo logo-dark" alt="Foundry" src="{% static "img/logo-dark.png" %}" />
+                    </a>
+                </div>
+            </div> -->
+        </nav>
+    </div>
+    <div class="main-container">
+      <section class="fullscreen cover image-bg">
+      		<div class="background-image-holder">
+              {% if not control_meta.on_air %}
+        				<img alt="image" class="background-image" src="{{ control_meta.background.url }}" />
+              {% else %}
+        				<div id="hlsjslive1" class="fp-minimal fs-vid-background" style="background-color: #000;"></div>
+              {% endif %}
+      		</div>
+      		<!-- <div class="align-bottom">
+            <h2 class="mb0 uppercase hidden-sm">Zuirens</h2>
+            <h2 class="mb0 uppercase bold">{{ channel.main_title }}</h2>
+      				<h4 class="mb32 large uppercase"> {{ control_meta.performer }} <br>
+                          {{ control_meta.start_time|date:"H : i" }} - {{ control_meta.end_time|date:"H : i" }}<br> {{ control_meta.start_time|date:"m / d D" }}
+                        </h4>
+      				<h5 class="uppercase mb0 hidden-sm">{{ channel.main_slogan }}</h5>
+      		</div> -->
+      </section>
+      {% if replay %}
+      <div class="wrap-swiper" id='wrap-swiper'>
+        <div class="swiper-button-prev swiper-button-white replay-swiper-button-prev hidden-sm"></div>
+        <div class="swiper-button-next swiper-button-white replay-swiper-button-next hidden-sm"></div>
+        <div class="swiper-container replay-swiper-container">
+            <div class="swiper-wrapper replay-swiper-wrapper">
+              {% for replay in replay %}
+                <div class="swiper-slide replay-swiper-slide" id="{{ replay.pk }}-item" data-pk="{{ replay.pk }}">
+                  <figure class='replay-figure'>
+                    <div class="img-shadow"></div>
+                    <img class='replay-img' src="{{ replay.background.url }}" alt="">
+                    <figcaption class='description-figcaption-performer'>{{ replay.performer }}</figcaption>
+                    <!-- <figcaption class='description-figcaption'>{{ replay.date|date:"mdy" }}</figcaption> -->
+                  </figure>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
+      </div>
+      {% endif %}
+        <div class="replay-div">
+          <div class="replay-div-content">
+            <!-- <div id="hlsjslive2" class="fp-minimal fs-vid-background" style="background-color: #000;"></div> -->
+          </div>
+          <div class="replay-div-content-text"></div>
+          <div class="close-div">
+            &times;
+          </div>
+        </div>
+        <section class="bg-primary pt180 pb180 pt-xs-96 pb-xs-96">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-1 text-right text-left-xs col-sm-5">
+                          {{ channel.up_coming_description|safe }}
+                          <hr class="visible-xs">
+                        </div>
+                        <div class="col-md-5 col-sm-7">
+                          <ul class="mb0">
+                            {% for up_comming in up_commings %}
+                              <li class="mb8">
+                                  <h5 class="uppercase inline-block mb0">{{ up_comming.name }} /&nbsp;</h5>
+                                  <span>{{ up_comming.start_time|date:"m/d" }}</span>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </section>
+              <div class="sponsor-swiper-container">
+                  <div class="swiper-wrapper">
+                      {% for sponsor in sponsors %}
+                      <div class="swiper-slide">
+                        <section class="image-bg overlay pt180 pb180 pt-xs-96 pb-xs-96 slide">
+                          <div class="background-image-holder">
+                            <img alt="image" class="background-image" src="{{ sponsor.background.url }}" />
+                          </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-5 col-md-offset-1 col-sm-6">
+                                      <h4 class="bold uppercase italic mb8">{{ sponsor.name }}</h4>
+                                      <h6 class="uppercase mb0">{{ sponsor.description }}</h6>
+                                    </div>
+                                </div>
+                                <!--end of row-->
+                            </div>
+                            <!--end of container-->
+                          </section>
+                        </div>
+                        {% endfor %}
+                  </div>
+                  {% if sponsors|length > 1 %}
+                  <div class="swiper-button-prev swiper-button-white sponsor-swiper-button-prev"></div>
+                  <div class="swiper-button-next swiper-button-white sponsor-swiper-button-next"></div>
+                  {% endif %}
+              </div>
+              <section class="bg-secondary">
+                          <div class="container">
+                              <div class="row v-align-children">
+                                <div class="col-md-2 col-sm-12 text-center mb-xs-24">
+                                  <a href="https://www.facebook.com/zuirens">
+                                      <h3 class="mb16">#follow us</h3>
+                                  </a>
+                                </div>
+                                  <div class="col-md-4 col-sm-6 text-center mb-xs-24">
+                                      <div class="fb-page"
+                                    data-href="https://www.facebook.com/zuirens"
+                                    data-width="360"
+                                    data-adapt-container-width="true"
+                                    data-hide-cover="false"
+                                    data-show-facepile="false"
+                                    data-hide-cover="true"
+                                    data-show-posts="false">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6 col-sm-6 text-center">
+                                      <div class="instafeed grid-gallery" data-user-name="zuirens_live">
+                                          <ul></ul>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!--end of row-->
+                          </div>
+                          <!--end of container-->
+                      </section>
+        <footer class="footer-1 bg-primary">
+          <div class="container">
+                    <div class="row mb16">
+                        <div class="col-xs-6">
+                          <img alt="pioneer" class="logo" src="{% static "img/logo-light.png" %}">
+                        </div>
+                        <!-- <div class="col-xs-6 text-right">
+                        </div> -->
+                    </div>
+                    <!--end of row-->
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <span class="sub">© Copyright 2017 - Zuirens</span>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <ul class="list-inline social-list">
+                              <li>
+                                  <a href="https://www.facebook.com/zuirens/">
+                                      <i class="icon icon-xs ti-facebook"></i>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="https://www.instagram.com/zuirens_live/">
+                                      <i class="icon icon-xs ti-instagram"></i>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="https://www.youtube.com/channel/UCo5tQnGYTpAwKyHZCXajMcg">
+                                      <i class="icon icon-xs ti-youtube"></i>
+                                  </a>
+                              </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <!--end of container-->
+        </footer>
+    </div>
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/flexslider.min.js" %}"></script>
+    <script src="{% static "js/spectragram.min.js" %}"></script>
+    <script src="{% static "js/smooth-scroll.min.js" %}"></script>
+    <script src="{% static "js/parallax.js" %}"></script>
+    <script src="{% static "js/scripts.js" %}"></script>
+    <!-- include flowplayer -->
+    <script src="{% static "js/flowplayer.min.js" %}"></script>
+    <script src="{% static "js/flowplayer.hlsjs.min.js" %}"></script>
+    <script src="{% static "js/flowplayer.background.min.js" %}"></script>
+
+    <script src="{% static "swiper/js/swiper.min.js" %}"></script>
+    <script src="{% static "js/replay-slider.js" %}"></script>
+
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.9&appId=1401988986704362";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <script>
+    // flowplayer.conf.analytics = "UA-1718206-52";
+
+        window.onload = function() {
+            var player1 = flowplayer("#hlsjslive1", {
+                safari: true,
+                live: true,
+                autoplay: true,
+                adaptiveRatio: true,
+                volume: 1.0,
+                clip: {
+                    sources: [{
+                        type: "application/x-mpegurl",
+                        src: "{{ control_meta.stream_source }}"
+                    }]
+                }
+
+            });
+
+
+          function closeReplayDiv() {
+            $('#'+last+'-item .replay-figure .replay-img').removeClass('replay-img-bright')
+            $(".replay-div-content").html('')
+            $('.replay-div-content').css('background-image', '')
+            $('.replay-div-content').css('opacity', '0')
+            $(".replay-div-content-text").fadeOut(200);
+            $('.replay-div').removeClass('expand-replay-div');
+            last = ''
+          }
+
+          var last
+          {% for replay in replay %}
+          $('#{{ replay.pk }}-item').click(function() {
+            var replay_pk = $('#{{ replay.pk }}-item').data('pk')
+            $(".replay-img").each(function(){
+              if ($(this).hasClass('replay-img-bright')) {
+                $(this).removeClass('replay-img-bright')
+              }
+            });
+            if (last === replay_pk) {
+              closeReplayDiv()
+            } else {
+              {% if control_meta.on_air %}
+              player1.pause()
+              {% endif %}
+              $('.replay-div-content').css('background-image', '')
+              last = replay_pk
+              setTimeout(function() {
+                $('.replay-div-content').css('opacity', '1')
+              }, 300)
+
+              $.ajax({
+                url: "{% url 'replay' %}",
+                type: 'GET',
+                data: { pk: replay_pk},
+                success: function(data) {
+                  $(".replay-div-content").html('')
+                  if (data.replay_source) {
+                    // background-image: url(' + data.background + ')
+                    $(".replay-div-content").html('<div id="hlsjslive2" class="fp-minimal fs-vid-background" style="background-image: url(' + data.background + ');background-size: cover;"></div>');
+                    var player2 = flowplayer("#hlsjslive2", {
+                      autoplay: true,
+                      safari: true,
+                      adaptiveRatio: true,
+                      volume: 1.0,
+                      clip: {
+                          sources: [{
+                              type: "video/mp4",
+                              src: data.replay_source
+                              //cdn.flowplayer.org/202777/84049-bauhaus.m3u8
+                          }]
+                      }
+
+                    });
+                  } else {
+                    $('.replay-div-content').css('background-image', 'url(' + data.background + ')')
+                  }
+                  $(".replay-div-content-text").html(
+                    "<h2 class='mb0 uppercase bold'>{{ channel.main_title }}</h2><h4 class='mb32 large uppercase'>"+data.performer+"</h4><h5 class='uppercase mb0'>"+data.date+"</h5>"
+                  ).hide().fadeIn(300);
+                  $('.replay-div').addClass('expand-replay-div');
+                },
+                error: function(err) {
+                  console.log(err)
+                },
+              });
+            }
+
+
+
+            $('html, body').animate({
+              scrollTop: $("#wrap-swiper").offset().top
+            }, 500);
+          });
+
+          $('.close-div').click(function() {
+            closeReplayDiv()
+          });
+          {% endfor %}
+
+          $('.background-image-holder').click(function() {
+            if ("{{ control_meta.on_air }}" === "True"){
+              if ($('.replay-div').hasClass('expand-replay-div')) {
+                closeReplayDiv()
+                $('html, body').animate({
+                  scrollTop: $(".background-image-holder").offset().top
+                }, 500);
+              }
+            }
+
+
+          })
+
+
+          var mySwiper = new Swiper ('.sponsor-swiper-container', {
+            // Optional parameters
+            direction: 'horizontal',
+            slidesPerView: '1',
+            {% if sponsors|length == 1 %}
+            allowSwipeToPrev: false,
+            allowSwipeToNext: false,
+            {% endif %}
+
+            nextButton: '.sponsor-swiper-button-next',
+            prevButton: '.sponsor-swiper-button-prev',
+
+          })
+
+
+        };
+
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1718206-52', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <script type="text/javascript">
+
+
+    </script>
+
+  </body>
+</body>
+
+</html>
