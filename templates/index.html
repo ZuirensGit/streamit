@@ -68,14 +68,14 @@
     <div class="nav-container">
         <a id="top"></a>
         <nav class="absolute transparent">
-            <div class="nav-bar">
+            <!-- <div class="nav-bar">
                 <div class="module left">
                     <a href="{% url "index" %}">
                         <img class="logo logo-light" alt="Foundry" src="{% static "img/logo-light.png" %}" />
                         <img class="logo logo-dark" alt="Foundry" src="{% static "img/logo-dark.png" %}" />
                     </a>
                 </div>
-            </div>
+            </div> -->
         </nav>
     </div>
     <div class="main-container">
@@ -87,14 +87,14 @@
         				<div id="hlsjslive1" class="fp-minimal fs-vid-background" style="background-color: #000;"></div>
               {% endif %}
       		</div>
-      		<div class="align-bottom">
+      		<!-- <div class="align-bottom">
             <h2 class="mb0 uppercase hidden-sm">Zuirens</h2>
             <h2 class="mb0 uppercase bold">{{ channel.main_title }}</h2>
       				<h4 class="mb32 large uppercase"> {{ control_meta.performer }} <br>
                           {{ control_meta.start_time|date:"H : i" }} - {{ control_meta.end_time|date:"H : i" }}<br> {{ control_meta.start_time|date:"m / d D" }}
                         </h4>
       				<h5 class="uppercase mb0 hidden-sm">{{ channel.main_slogan }}</h5>
-      		</div>
+      		</div> -->
       </section>
       {% if replay %}
       <div class="wrap-swiper" id='wrap-swiper'>
